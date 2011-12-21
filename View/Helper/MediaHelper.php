@@ -66,6 +66,29 @@ class MediaHelper extends AppHelper {
 	);
 
 /**
+ * Minimized attributes
+ *
+ * @var array
+ */
+	protected $_minimizedAttributes = array(
+		'autoplay', 'controls', 'autobuffer', 'loop'
+	);
+
+/**
+ * Format to attribute
+ *
+ * @var string
+ */
+	protected $_attributeFormat = '%s="%s"';
+
+/**
+ * Format to attribute
+ *
+ * @var string
+ */
+	protected $_minimizedAttributeFormat = '%s="%s"';
+
+/**
  * Directory paths mapped to URLs. Can be modified by passing custom paths as
  * settings to the constructor.
  *
@@ -559,12 +582,11 @@ class MediaHelper extends AppHelper {
  */
 	function _parseAttributes($options) {
 		$attributes = array();
-		$minimizedAttributes = array('autoplay', 'controls', 'autobuffer', 'loop');
 
 		foreach ($options as $key => $value) {
-			if (in_array($key, $minimizedAttributes)) {
+			if (in_array($key, $this->_minimizedAttributes)) {
 				if ($value === 1 || $value === true || $value === 'true' || $value == $key) {
-					$attributes[] = sprintf('%s="%s"', $key, $key);
+					$attributes[] = sprintf($this->_minimizedAttributeFormat, $key, $key);
 					unset($options[$key]);
 				}
 			}
