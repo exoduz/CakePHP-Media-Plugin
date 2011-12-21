@@ -495,6 +495,8 @@ class MediaHelper extends AppHelper {
  *                        an absolute path to the file.
  */
 	function file($path) {
+		App::uses('Folder', 'Utility');
+
 		// Most recent paths are probably searched more often
 		$bases = array_reverse(array_keys($this->_paths));
 
