@@ -57,7 +57,7 @@ class MediaHelper extends AppHelper {
  *
  * @var array
  */
-	var $tags = array(
+	protected $_tags = array(
 		'audio'          => '<audio%s>%s%s</audio>',
 		'video'          => '<video%s>%s%s</video>',
 		'source'         => '<source%s/>',
@@ -234,7 +234,7 @@ class MediaHelper extends AppHelper {
 
 				foreach ($sources as $source) {
 					$body .= sprintf(
-						$this->tags['source'],
+						$this->_tags['source'],
 						$this->_parseAttributes(array(
 							'src' => $source['url'],
 							'type' => $source['mimeType']
@@ -242,7 +242,7 @@ class MediaHelper extends AppHelper {
 				}
 				$attributes += compact('autoplay', 'controls', 'preload', 'loop');
 				return sprintf(
-					$this->tags['audio'],
+					$this->_tags['audio'],
 					$this->_parseAttributes($attributes),
 					$body,
 					$fallback
@@ -253,7 +253,7 @@ class MediaHelper extends AppHelper {
 				$attributes = $this->_addDimensions($sources[0]['file'], $attributes);
 
 				return sprintf(
-					$this->Html->tags['image'],
+					$this->Html->_tags['image'],
 					$sources[0]['url'],
 					$this->_parseAttributes($attributes)
 				);
@@ -262,7 +262,7 @@ class MediaHelper extends AppHelper {
 
 				foreach ($sources as $source) {
 					$body .= sprintf(
-						$this->tags['source'],
+						$this->_tags['source'],
 						$this->_parseAttributes(array(
 							'src' => $source['url'],
 							'type' => $source['mimeType']
@@ -275,7 +275,7 @@ class MediaHelper extends AppHelper {
 
 				$attributes += compact('autoplay', 'controls', 'preload', 'loop', 'poster');
 				return sprintf(
-					$this->tags['video'],
+					$this->_tags['video'],
 					$this->_parseAttributes($attributes),
 					$body,
 					$fallback
@@ -437,7 +437,7 @@ class MediaHelper extends AppHelper {
 				break;
 		}
 		return sprintf(
-			$this->tags['object'],
+			$this->_tags['object'],
 			$this->_parseAttributes($attributes),
 			$this->_parseParameters($parameters),
 			$fallback
@@ -613,7 +613,7 @@ class MediaHelper extends AppHelper {
 				$value = 'false';
 			}
 			$parameters[] = sprintf(
-				$this->tags['param'],
+				$this->_tags['param'],
 				$this->_parseAttributes(array('name' => $key, 'value' => $value))
 			);
 		}
