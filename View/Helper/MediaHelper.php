@@ -261,6 +261,10 @@ class MediaHelper extends AppHelper {
 				$body = null;
 
 				foreach ($sources as $source) {
+					// hack
+					if ($source['mimeType'] == 'video/mp4'){
+						$source['mimeType'] = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+					}
 					$body .= sprintf(
 						$this->_tags['source'],
 						$this->_parseAttributes(array(
